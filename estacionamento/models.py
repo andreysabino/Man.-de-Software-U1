@@ -15,12 +15,15 @@ class Veiculo(models.Model):
     proprietario = models.ForeignKey(Dono, on_delete=models.CASCADE, default='')
 
     def __str__(self):
-        return self.modelo
+        return f"{self.marca} {self.modelo} ({self.placa})"
 
 class Patio(models.Model):
     numeroVaga = models.CharField(max_length=10, unique=True)
     ocupada = models.BooleanField(default=False)
     veiculo = models.OneToOneField(Veiculo, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.numero_vaga
 
 class Pagamento(models.Model):
     responsavel = models.ForeignKey(Dono, on_delete=models.CASCADE, default='')
